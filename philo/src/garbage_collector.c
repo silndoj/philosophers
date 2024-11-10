@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 01:40:25 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/09 02:24:06 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/10 20:02:56 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,5 @@ void	free_allocations(void)
 
 	allocation_array = get_allocation_array(&count);
 	free_2d(allocation_array, count);
-	write(1, "All allocated memory freed.\n", 28);
+//	write(1, "All allocated memory freed.\n", 28);
 }

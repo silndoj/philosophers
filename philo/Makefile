@@ -3,9 +3,9 @@ NAME				=	philo
 BLUE	=	\033[34m
 GREEN	=	\033[32m
 RESET	=	\033[0m
-RED		=	\e[0;31m
+RED		=	\x1b[31m
 
-CC					=	cc
+CC					=	cc -g
 FLAGS				=   -Wextra -Wall -Werror 
 
 SRC_DIR				= 	src
@@ -20,7 +20,7 @@ $(NAME)		:	$(OBJ)
 				@echo  "$(GREEN)<<Linking objects>>$(RESET)"
 				$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
-$(OBJ_DIR)/%.o:	$(SRC)
+$(OBJ_DIR)/%.o:	src/%.c
 			@mkdir -p $(OBJ_DIR)
 			@echo "$(BLUE)<<Compiling $<>>$(RESET)"
 			@$(CC) $(CFLAGS) -c $< -o $@

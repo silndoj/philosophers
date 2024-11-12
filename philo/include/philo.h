@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 01:45:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/11 09:07:13 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/12 12:39:38 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 typedef struct	philo_t
 {
-	pthread_t	*philos;
-	int			philo_idx;
-
+	pthread_t		*philos;
+	int				philo_idx;
+	pthread_mutex_t	mutex;
 }	t_philo;
 
 //Initialize

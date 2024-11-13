@@ -6,7 +6,7 @@ RESET	=	\033[0m
 RED		=	\x1b[31m
 
 CC					=	cc -g
-FLAGS				=   -Wextra -Wall -Werror 
+FLAGS				=   -Wextra -Wall -Werror -lpthread
 
 SRC_DIR				= 	src
 SRC 				= 	$(wildcard $(SRC_DIR)/*.c)

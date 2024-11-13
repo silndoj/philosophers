@@ -6,11 +6,12 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:10:26 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/12 16:02:43 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:14:13 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <stdio.h>
 
 int mails = 0;
 
@@ -28,16 +29,29 @@ void* routine(void* arg)
 	return ((void*) ptr);
 }
 
-int	sit_on_table(char **argv, t_philo *philos)
+t_philo	*init_philos(char **argv)
+{
+	t_philo	*philos;
+
+	philos = ft_malloc(sizeof(t_philo));
+	philos->philo_idx = ft_atoi(argv[1]);
+	philos->time_to_die = ft_atoi(argv[2]);
+	philos->time_to_eat = ft_atoi(argv[3]);
+	philos->time_to_sleep = ft_atoi(argv[4]);
+	philos->philos = ft_malloc(sizeof(pthread_t) * philos->philo_idx);
+	pthread_mutex_init(&philos->mutex, NULL);
+	printf("address of struct = %p\n", philos);
+	printf("success initialization!!\n");
+	return (philos);
+}
+
+int	sit_on_table(t_philo *philos)
 {
 	int	i;
 	int	j;
 
 	j = -1;
-	i = ft_atoi(argv[1]);
-	philos->philo_idx = i;
-	philos->philos = ft_malloc(sizeof(pthread_t) * i);
-	pthread_mutex_init(&philos->mutex, NULL);
+	i = philos->philo_idx;
     while (++j < i)
 	{
 		if (pthread_create(philos->philos + j, NULL, &routine, &philos->mutex) != 0)

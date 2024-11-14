@@ -6,17 +6,20 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:16:38 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/14 12:44:42 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:20:18 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <stdio.h>
 
 int	is_digit(char c)
 {
-	if (c < 48 && c > 39)
-		return (0);
-	return (1);
+	if (c == '-' || c == '+')
+		return (1);
+	else if ((int)c >= 48 && (int)c <= 57)
+		return (1);
+	return (0);
 }
 
 int arg_checker(char *argv)
@@ -24,7 +27,16 @@ int arg_checker(char *argv)
 	int	i;
 
 	i = 0;
-	while (i)
+	while (argv[i])
+	{
+		if (!is_digit(argv[i]))
+		{
+			printf("please add correctly arguments\n");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
 int	ft_atoi(const char *str)

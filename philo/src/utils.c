@@ -6,11 +6,26 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:16:38 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/10 19:33:20 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/14 12:44:42 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+int	is_digit(char c)
+{
+	if (c < 48 && c > 39)
+		return (0);
+	return (1);
+}
+
+int arg_checker(char *argv)
+{
+	int	i;
+
+	i = 0;
+	while (i)
+}
 
 int	ft_atoi(const char *str)
 {

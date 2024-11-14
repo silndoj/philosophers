@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 01:45:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/13 17:12:56 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/14 12:44:44 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ typedef struct	philo_t
 int				sit_on_table(t_philo *philos);
 int				ft_atoi(const char *str);
 t_philo			*init_philos(char **argv);
+int				arg_checker(char *argv);
 
 #endif

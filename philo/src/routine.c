@@ -6,12 +6,24 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 16:26:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/23 17:13:13 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 #include <pthread.h>
+
+void	p_take_forks(t_philo *philos, t_private *p_private)
+{
+	pthread_mutex_lock(p_private->l_fork);
+	pthread_mutex_lock(&philos->single_lock);
+	printf("%d has taken left fork\n", p_private->idx);
+	pthread_mutex_unlock(&philos->single_lock);
+	pthread_mutex_lock(p_private->r_fork);
+	pthread_mutex_lock(&philos->single_lock);
+	printf("%d has taken right fork\n", p_private->idx);
+	pthread_mutex_unlock(&philos->single_lock);
+}
+
 
 void	*routine(void *arg)
 {
@@ -25,8 +37,7 @@ void	*routine(void *arg)
 		pthread_mutex_lock(&philos->single_lock);
 		printf("%d is thinking\n", p_private->idx);
 		pthread_mutex_unlock(&philos->single_lock);
-//		if (p_private->idx + 1 > p_private->idx)
-//			philos->flag = 0;
+		p_take_forks(philos, p_private);
 	}
 	return (NULL);
 }

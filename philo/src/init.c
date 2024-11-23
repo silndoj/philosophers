@@ -20,6 +20,7 @@ void	init_forks(t_philo *philos)
 	i = -1;
 	while (++i < philos->philo_idx)
 		pthread_mutex_init(&philos->forks[i], NULL);
+	pthread_mutex_init(&philos->single_lock, NULL);
 }
 
 void	init_single_philo(t_philo *philos)
@@ -50,8 +51,9 @@ int	philos_init(t_philo *philos, int argc, char **argv)
 		philos->flag = 1;
 		if (argc == 6)
 			philos->number_of_meals = ft_atoi(argv[5]);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
 int	init_philos(t_philo *philos, char **argv, int argc)

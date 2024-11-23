@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 02:40:12 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/23 14:24:33 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/23 17:02:20 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int	main(int argc, char *argv[])
 		free_allocations();
 		return (1);
 	}
-	free_allocations();
+	post_clean(&philos);
 	return (0);
 }

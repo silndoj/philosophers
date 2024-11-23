@@ -33,6 +33,13 @@ void	p_eat(t_philo *philos, t_private *p_private)
 	pthread_mutex_unlock(p_private->r_fork);
 }
 
+void	p_sleep(t_philo *philos, t_private *p_private)
+{
+	pthread_mutex_lock(&philos->single_lock);
+	printf("%d is sleeping\n", p_private->idx);
+	pthread_mutex_unlock(&philos->single_lock);
+}
+
 void	*routine(void *arg)
 {
 	t_private	*p_private;
@@ -47,6 +54,7 @@ void	*routine(void *arg)
 		pthread_mutex_unlock(&philos->single_lock);
 		p_take_forks(philos, p_private);
 		p_eat(philos, p_private);
+		p_sleep(philos, p_private);
 	}
 	return (NULL);
 }

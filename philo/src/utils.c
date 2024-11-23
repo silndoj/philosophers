@@ -6,12 +6,11 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:16:38 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/23 14:26:25 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/23 16:02:39 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <stdio.h>
 
 int	is_digit(char c)
 {
@@ -40,12 +39,6 @@ int	philos_checker(t_philo *philos, int argc, char **argv)
 		printf("should not be less than 60\n");
 		return (1);
 	}
-	philos->philo_idx = ft_atoi(argv[1]);
-	philos->time_to_die = ft_atoi(argv[2]);
-	philos->time_to_eat = ft_atoi(argv[3]);
-	philos->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		philos->number_of_meals = ft_atoi(argv[5]);
 	return (0);
 }
 

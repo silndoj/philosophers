@@ -6,93 +6,65 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:10:26 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/14 20:20:46 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/23 16:03:46 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 #include <stdio.h>
-#include <stdlib.h>
 
-int mails = 0;
-
-void* routine(void* arg)
+void	init_forks(t_philo *philos)
 {
 	int	i;
-	char	*ptr;
 
 	i = -1;
-    while (++i < 1000000) {
-        pthread_mutex_lock(arg);
-        mails++;
-        pthread_mutex_unlock(arg);
-    }
-	return ((void*) ptr);
+	while (++i < philos->philo_idx)
+		pthread_mutex_init(&philos->forks[i], NULL);
 }
 
-int philos_checker(t_philo *philos, char **argv)
+void	init_single_philo(t_philo *philos)
 {
-	if (ft_atoi(argv[1]) > 200 || ft_atoi(argv[1]) < 1)
+	int	i;
+	int	idx;
+
+	i = -1;
+	idx = philos->philo_idx;
+	while (++i < philos->philo_idx)
 	{
-		printf("philos range should be 1-200\n");
-		return (1);
+		philos->p_private[i].idx = i + 1;
+		philos->p_private[i].meals_eaten = 0;
+		philos->p_private[i].l_fork = &philos->forks[i];
+		philos->p_private[i].r_fork = &philos->forks[(i + 1) % idx];
+		philos->p_private[i].philos = philos;
 	}
-	if (ft_atoi(argv[2]) < 60 || ft_atoi(argv[3]) < 60
-	|| ft_atoi(argv[4]) < 60)
+}
+
+int	philos_init(t_philo *philos, int argc, char **argv)
+{
+	if (!philos_checker(philos, argc, argv))
 	{
-		printf("time_to_die or time_to_eat or time_to_sleep\n");
-		printf("should not be less than 60\n");
-		return (1);
+		philos->philo_idx = ft_atoi(argv[1]);
+		philos->time_to_die = ft_atoi(argv[2]);
+		philos->time_to_eat = ft_atoi(argv[3]);
+		philos->time_to_sleep = ft_atoi(argv[4]);
+		philos->flag = 1;
+		if (argc == 6)
+			philos->number_of_meals = ft_atoi(argv[5]);
 	}
-	philos->philo_idx = ft_atoi(argv[1]);
-	philos->time_to_die = ft_atoi(argv[2]);
-	philos->time_to_eat = ft_atoi(argv[3]);
-	philos->time_to_sleep = ft_atoi(argv[4]);
 	return (0);
 }
 
-t_philo	*init_philos(char **argv)
+int	init_philos(t_philo *philos, char **argv, int argc)
 {
-	t_philo	*philos;
-
-	philos = ft_malloc(sizeof(t_philo));
-	if (arg_checker(argv[1]) || arg_checker(argv[2])
-	|| arg_checker(argv[3]) || arg_checker(argv[4]))
-		return (NULL);
-	if (philos_checker(philos, argv))
-		return (NULL);
-	philos->forks = ft_malloc(sizeof(int) * philos->philo_idx);
-	philos->philos = ft_malloc(sizeof(pthread_t) * philos->philo_idx);
-	pthread_mutex_init(&philos->mutex, NULL);
-	printf("address of struct = %p\n", philos);
-	printf("success initialization!!\n");
-	return (philos);
-}
-
-int	sit_on_table(t_philo *philos)
-{
-	int	i;
-	int	j;
-
-	j = -1;
-	i = philos->philo_idx;
-    while (++j < i)
-	{
-		if (pthread_create(philos->philos + j, NULL, &routine, &philos->mutex) != 0)
-		{
-			perror("Failed to create thread");
-            return 1;
-        }
-        printf("Thread %d has started\n", j);
-    }
-	j = -1;
-    while (++j < i)
-	{
-		if (pthread_join(philos->philos[j], NULL) != 0)
-			return 2;
-        printf("Thread %d has finished execution\n", j);
-    }
-    pthread_mutex_destroy(&philos->mutex);
-    printf("Number of mails: %d\n", mails);
-    return 0;
+	if (arg_checker(argv))
+		return (1);
+	if (philos_init(philos, argc, argv))
+		return (1);
+	philos->forks = ft_malloc(sizeof(pthread_mutex_t) * philos->philo_idx);
+	philos->p_private = ft_malloc(sizeof(t_private) * philos->philo_idx);
+	if (!philos->forks || !philos->p_private)
+		return (write(STDERR_FILENO, "Memory Alloc Failed\n", 20), 1);
+	init_forks(philos);
+	init_single_philo(philos);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 01:45:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/14 20:04:05 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/23 14:23:08 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,21 @@
 
 typedef struct	philo_t
 {
-	pthread_mutex_t	mutex;
-	pthread_t		*philos;
 	int				philo_idx;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				*forks;
+	int				number_of_meals;
 }	t_philo;
-
-//Checking
-int				philos_checker(t_philo *philos, char **argv);
-int				arg_checker(char *argv);
 
 //Initialize
 int				sit_on_table(t_philo *philos);
-t_philo			*init_philos(char **argv);
+int				init_philos(t_philo *philos, char **argv, int argc);
 
 //Utils
 int				is_digit(char c);
 int				ft_atoi(const char *str);
-
+int				philos_checker(t_philo *philos, int argc, char **argv);
+int				arg_checker(char **argv);
 
 #endif

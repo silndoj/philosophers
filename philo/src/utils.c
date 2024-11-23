@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:16:38 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/14 20:20:18 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/23 14:26:25 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,50 @@ int	is_digit(char c)
 	return (0);
 }
 
-int arg_checker(char *argv)
+int	philos_checker(t_philo *philos, int argc, char **argv)
+{
+	if (argc < 5 || argc > 6)
+	{
+		printf("Prompt should be as followed\n \
+./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
+[number_of_times_each_philosopher_must_eat]\n");
+		return (1);
+	}
+	if (ft_atoi(argv[1]) > 200 || ft_atoi(argv[1]) < 1)
+		return (printf("philos range should be 1-200\n"), 1);
+	if (ft_atoi(argv[2]) < 60 || ft_atoi(argv[3]) < 60
+		|| ft_atoi(argv[4]) < 60)
+	{
+		printf("time_to_die or time_to_eat or time_to_sleep\n");
+		printf("should not be less than 60\n");
+		return (1);
+	}
+	philos->philo_idx = ft_atoi(argv[1]);
+	philos->time_to_die = ft_atoi(argv[2]);
+	philos->time_to_eat = ft_atoi(argv[3]);
+	philos->time_to_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
+		philos->number_of_meals = ft_atoi(argv[5]);
+	return (0);
+}
+
+int	arg_checker(char **argv)
 {
 	int	i;
+	int	j;
 
-	i = 0;
+	i = 1;
 	while (argv[i])
 	{
-		if (!is_digit(argv[i]))
+		j = 0;
+		while (argv[i][j])
 		{
-			printf("please add correctly arguments\n");
-			return (1);
+			if (!is_digit(argv[i][j]))
+			{
+				printf("%s should be INT\n", argv[i]);
+				return (1);
+			}
+			j++;
 		}
 		i++;
 	}

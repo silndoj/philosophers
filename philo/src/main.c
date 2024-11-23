@@ -15,20 +15,14 @@
 
 int	main(int argc, char *argv[])
 {
-	t_philo	*philos;
+	t_philo	philos;
 	int		i;
 
-	if (argc == 5 || argc == 6)
+	if (init_philos(&philos, argv, argc))
 	{
-		philos = init_philos(argv);
-		if (!philos)
-		{
-			free_allocations();
-			return (1);
-		}
-		printf("address of struct = %p\n", philos);
-		i = sit_on_table(philos);
-		printf("return = (%d)\n", i);
+		printf("\nfailed INIT\n");
+		free_allocations();
+		return (1);
 	}
 	free_allocations();
 	return (0);

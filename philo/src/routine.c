@@ -24,6 +24,14 @@ void	p_take_forks(t_philo *philos, t_private *p_private)
 	pthread_mutex_unlock(&philos->single_lock);
 }
 
+void	p_eat(t_philo *philos, t_private *p_private)
+{
+	pthread_mutex_lock(&philos->single_lock);
+	printf("%d is eating\n", p_private->idx);
+	pthread_mutex_unlock(&philos->single_lock);
+	pthread_mutex_unlock(p_private->l_fork);
+	pthread_mutex_unlock(p_private->r_fork);
+}
 
 void	*routine(void *arg)
 {
@@ -38,6 +46,7 @@ void	*routine(void *arg)
 		printf("%d is thinking\n", p_private->idx);
 		pthread_mutex_unlock(&philos->single_lock);
 		p_take_forks(philos, p_private);
+		p_eat(philos, p_private);
 	}
 	return (NULL);
 }

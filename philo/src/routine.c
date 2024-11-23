@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/09 02:40:12 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/23 17:02:20 by silndoj          ###   ########.fr       */
+/*   Created: 2024/11/23 16:26:36 by silndoj           #+#    #+#             */
+/*   Updated: 2024/11/23 17:13:13 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <stdio.h>
+#include <pthread.h>
 
-int	main(int argc, char *argv[])
+void	*routine(void *arg)
 {
-	t_philo	philos;
-	int		i;
+	t_private	*p_private;
+	t_philo		*philos;
 
-	if (init_philos(&philos, argv, argc))
+	p_private = (t_private *) arg;
+	philos = p_private->philos;
+	while (philos->flag)
 	{
-		printf("\nfailed INIT\n");
-		free_allocations();
-		return (1);
+		pthread_mutex_lock(&philos->single_lock);
+		printf("%d is thinking\n", p_private->idx);
+		pthread_mutex_unlock(&philos->single_lock);
+//		if (p_private->idx + 1 > p_private->idx)
+//			philos->flag = 0;
 	}
-	play_routine(&philos);
-	post_clean(&philos);
-	return (0);
+	return (NULL);
 }

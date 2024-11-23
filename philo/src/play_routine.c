@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   play_routine.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/09 02:40:12 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/23 17:02:20 by silndoj          ###   ########.fr       */
+/*   Created: 2024/11/23 16:54:40 by silndoj           #+#    #+#             */
+/*   Updated: 2024/11/23 17:06:58 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <stdio.h>
 
-int	main(int argc, char *argv[])
+void	play_routine(t_philo *philos)
 {
-	t_philo	philos;
-	int		i;
+	int	i;
 
-	if (init_philos(&philos, argv, argc))
-	{
-		printf("\nfailed INIT\n");
-		free_allocations();
-		return (1);
-	}
-	play_routine(&philos);
-	post_clean(&philos);
-	return (0);
+	i = -1;
+	philos->threads = ft_malloc(sizeof(pthread_t) * philos->philo_idx);
+	while (++i < philos->philo_idx)
+		pthread_create(&philos->threads[i], NULL, routine,
+			&philos->p_private[i]);
+	i = -1;
+	while (++i < philos->philo_idx)
+		pthread_join(philos->threads[i], NULL);
 }

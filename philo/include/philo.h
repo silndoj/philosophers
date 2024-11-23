@@ -50,6 +50,10 @@ int				philos_init(t_philo *philos, int argc, char **argv);
 void			init_single_philo(t_philo *philos);
 void			init_forks(t_philo *philos);
 
+//Routine_+_Simulation
+void			*routine(void *arg);
+void			play_routine(t_philo *philos);
+
 //Utils
 void			post_clean(t_philo *philos);
 int				is_digit(char c);

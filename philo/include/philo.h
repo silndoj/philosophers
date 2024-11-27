@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 01:45:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/23 17:07:52 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/27 19:00:11 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct private_t
 {
 	int				idx;
 	int				meals_eaten;
-	int				number_of_meals;
+	long			last_eat_time;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	struct philo_t	*philos;
@@ -60,5 +60,9 @@ int				is_digit(char c);
 int				ft_atoi(const char *str);
 int				arg_checker(char **argv);
 int				philos_checker(t_philo *philos, int argc, char **argv);
+
+//Utils1
+long int		actual_time(void);
+void			precise_usleep(long time_in_ms);
 
 #endif

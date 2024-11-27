@@ -19,7 +19,7 @@ int	main(int argc, char *argv[])
 
 	if (init_philos(&philos, argv, argc))
 	{
-		printf("\nfailed INIT\n");
+		ft_exit("\nfailed INIT\n");
 		free_allocations();
 		return (1);
 	}

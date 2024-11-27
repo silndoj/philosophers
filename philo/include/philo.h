@@ -64,5 +64,7 @@ int				philos_checker(t_philo *philos, int argc, char **argv);
 //Utils1
 long int		actual_time(void);
 void			precise_usleep(long time_in_ms);
+int				ft_exit(char *str);
+void			ft_putstr_fd(char *s, int fd);
 
 #endif

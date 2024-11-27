@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:16:38 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/23 17:09:29 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/24 22:59:52 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,15 @@ int	is_digit(char c)
 int	philos_checker(t_philo *philos, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
-	{
-		printf("Prompt should be as followed\n \
+		return (ft_exit("Prompt should be as followed\n \
 ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
-[number_of_times_each_philosopher_must_eat]\n");
-		return (1);
-	}
+[number_of_times_each_philosopher_must_eat]\n"));
 	if (ft_atoi(argv[1]) > 200 || ft_atoi(argv[1]) < 1)
-		return (printf("philos range should be 1-200\n"), 1);
+		return (ft_exit("philos range should be 1-200\n"));
 	if (ft_atoi(argv[2]) < 60 || ft_atoi(argv[3]) < 60
 		|| ft_atoi(argv[4]) < 60)
-	{
-		printf("time_to_die or time_to_eat or time_to_sleep\n");
-		printf("should not be less than 60\n");
-		return (1);
-	}
+		return (ft_exit("time_to_die or time_to_eat or time_to_sleep \
+should not be less than 60\n"));
 	return (0);
 }
 
@@ -66,10 +60,7 @@ int	arg_checker(char **argv)
 		while (argv[i][j])
 		{
 			if (!is_digit(argv[i][j]))
-			{
-				printf("%s should be INT\n", argv[i]);
-				return (1);
-			}
+				return (ft_exit("one of Arg is not an INT\n"));
 			j++;
 		}
 		i++;

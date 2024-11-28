@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 02:40:12 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/27 19:00:03 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/28 13:46:30 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ int	main(int argc, char *argv[])
 
 	if (init_philos(&philos, argv, argc))
 	{
-		ft_exit("\nfailed INIT\n");
 		free_allocations();
-		return (1);
+		return (ft_exit("\nfailed INIT\n"), 1);
 	}
 	play_routine(&philos);
 	post_clean(&philos);

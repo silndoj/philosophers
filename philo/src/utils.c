@@ -6,21 +6,27 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:16:38 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/24 22:59:52 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/12/03 19:26:46 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 #include <pthread.h>
+#include <stdlib.h>
 
 void	post_clean(t_philo *philos)
 {
 	int	i;
 
 	i = -1;
-	while (++i < philos->philo_idx)
-		pthread_mutex_destroy(&philos->forks[i]);
-	pthread_mutex_destroy(&philos->single_lock);
+	if (!philos)
+		return ;
+	if (philos->forks)
+	{
+		while (++i < philos->philo_idx)
+			pthread_mutex_destroy(&philos->forks[i]);
+		pthread_mutex_destroy(&philos->single_lock);
+	}
 	free_allocations();
 }
 

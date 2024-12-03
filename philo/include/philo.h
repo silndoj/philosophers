@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 01:45:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/27 19:00:11 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/11/30 22:38:45 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct philo_t
 //Initialize
 int				init_philos(t_philo *philos, char **argv, int argc);
 int				philos_init(t_philo *philos, int argc, char **argv);
-void			init_single_philo(t_philo *philos);
-void			init_forks(t_philo *philos);
+int				init_single_philo(t_philo *philos);
+int				init_forks(t_philo *philos);
 
 //Routine_+_Simulation
 void			*routine(void *arg);

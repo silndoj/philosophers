@@ -70,16 +70,19 @@ void	*routine(void *arg)
 
 	p_private = (t_private *) arg;
 	philos = p_private->philos;
+	
+	if (p_private->idx % 2 == 0)
+		precise_usleep(philos->time_to_eat / 2);
+		
 	while (philos->flag)
 	{
 		pthread_mutex_lock(&philos->single_lock);
-		printf("%ld %d is thinking\n", actual_time(), p_private->idx);
+		printf("%ld %d is thinking\n", actual_time() - philos->start_time, p_private->idx);
 		pthread_mutex_unlock(&philos->single_lock);
+		
 		p_take_forks(philos, p_private);
 		p_eat(philos, p_private);
-		precise_usleep(philos->time_to_eat);
 		p_sleep(philos, p_private);
-		precise_usleep(philos->time_to_sleep);
 	}
 	return (NULL);
 }

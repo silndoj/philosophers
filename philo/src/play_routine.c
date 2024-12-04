@@ -15,11 +15,13 @@
 void	death_cam(t_philo *philos)
 {
 	int	i;
+	int all_ate_enough;
 
 	i = 0;
 	while (philos->flag)
 	{
 		i = 0;
+		all_ate_enough = 1;
 		while (i < philos->philo_idx)
 		{
 			pthread_mutex_lock(&philos->single_lock);

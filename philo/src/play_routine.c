@@ -22,18 +22,20 @@ void	death_cam(t_philo *philos)
 		i = 0;
 		while (i < philos->philo_idx)
 		{
+			pthread_mutex_lock(&philos->single_lock);
 			if ((actual_time() - philos->p_private[i].last_eat_time)
 				> philos->time_to_die)
 			{
 				philos->flag = 0;
-				pthread_mutex_lock(&philos->single_lock);
-				printf("%ld %d died\n", actual_time(), \
-				philos->p_private[i].idx);
+				printf("%ld %d died\n", actual_time() - philos->start_time,
+					philos->p_private[i].idx);
 				pthread_mutex_unlock(&philos->single_lock);
-				break ;
+				return ;
 			}
+			pthread_mutex_unlock(&philos->single_lock);
 			i++;
 		}
+		usleep(100);
 	}
 }
 

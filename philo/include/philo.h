@@ -38,6 +38,7 @@ typedef struct philo_t
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_meals;
+	long			start_time;
 	pthread_t		*threads;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	single_lock;

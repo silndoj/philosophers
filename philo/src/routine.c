@@ -18,6 +18,18 @@ void	p_take_forks(t_philo *philos, t_private *p_private)
 	pthread_mutex_t *first_fork;
 	pthread_mutex_t *second_fork;
 
+	if (philos->philo_idx == 1)
+	{
+		pthread_mutex_lock(p_private->l_fork);
+		pthread_mutex_lock(&philos->single_lock);
+		printf("%ld %d has taken a fork\n", actual_time() - philos->start_time, p_private->idx);
+		pthread_mutex_unlock(&philos->single_lock);
+		while (philos->flag)
+			usleep(100);
+		pthread_mutex_unlock(p_private->l_fork);
+		return;
+	}
+
 	if (p_private->idx % 2 == 0)
 	{
 		first_fork = p_private->r_fork;

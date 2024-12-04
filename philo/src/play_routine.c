@@ -34,8 +34,18 @@ void	death_cam(t_philo *philos)
 				pthread_mutex_unlock(&philos->single_lock);
 				return ;
 			}
+			if (philos->number_of_meals != -1 && 
+				philos->p_private[i].meals_eaten < philos->number_of_meals)
+				all_ate_enough = 0;
 			pthread_mutex_unlock(&philos->single_lock);
 			i++;
+		}
+		if (philos->number_of_meals != -1 && all_ate_enough)
+		{
+			pthread_mutex_lock(&philos->single_lock);
+			philos->flag = 0;
+			pthread_mutex_unlock(&philos->single_lock);
+			return;
 		}
 		usleep(100);
 	}

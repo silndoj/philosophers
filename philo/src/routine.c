@@ -106,7 +106,11 @@ void	*routine(void *arg)
 		pthread_mutex_unlock(&philos->single_lock);
 		
 		p_take_forks(philos, p_private);
+		if (!philos->flag)
+			break;
 		p_eat(philos, p_private);
+		if (!philos->flag)
+			break;
 		p_sleep(philos, p_private);
 	}
 	return (NULL);

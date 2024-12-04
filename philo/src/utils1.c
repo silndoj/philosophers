@@ -24,12 +24,12 @@ long int	actual_time(void)
 	return (time);
 }
 
-void	precise_usleep(long time_in_ms)
+void	precise_usleep(long time_in_ms, t_philo *philos)
 {
 	long	start_time;
 
 	start_time = actual_time();
-	while ((actual_time() - start_time) < time_in_ms)
+	while ((actual_time() - start_time) < time_in_ms && philos->flag)
 		usleep(100);
 }
 

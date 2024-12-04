@@ -40,11 +40,24 @@ void	p_take_forks(t_philo *philos, t_private *p_private)
 		first_fork = p_private->l_fork;
 		second_fork = p_private->r_fork;
 	}
+	
 	pthread_mutex_lock(first_fork);
+	if (!philos->flag)
+	{
+		pthread_mutex_unlock(first_fork);
+		return;
+	}
 	pthread_mutex_lock(&philos->single_lock);
 	printf("%ld %d has taken a fork\n", actual_time() - philos->start_time, p_private->idx);
 	pthread_mutex_unlock(&philos->single_lock);
+	
 	pthread_mutex_lock(second_fork);
+	if (!philos->flag)
+	{
+		pthread_mutex_unlock(first_fork);
+		pthread_mutex_unlock(second_fork);
+		return;
+	}
 	pthread_mutex_lock(&philos->single_lock);
 	printf("%ld %d has taken a fork\n", actual_time() - philos->start_time, p_private->idx);
 	pthread_mutex_unlock(&philos->single_lock);

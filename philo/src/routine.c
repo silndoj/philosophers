@@ -97,7 +97,7 @@ void	*routine(void *arg)
 	philos = p_private->philos;
 	
 	if (p_private->idx % 2 == 0)
-		precise_usleep(philos->time_to_eat / 2);
+		precise_usleep(philos->time_to_eat / 2, philos);
 		
 	while (philos->flag)
 	{

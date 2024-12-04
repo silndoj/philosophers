@@ -66,13 +66,13 @@ void	p_take_forks(t_philo *philos, t_private *p_private)
 void	p_eat(t_philo *philos, t_private *p_private)
 {
 	pthread_mutex_lock(&philos->single_lock);
-	p_private->last_eat_time = actual_time();
 	printf("%ld %d is eating\n", actual_time() - philos->start_time, p_private->idx);
 	pthread_mutex_unlock(&philos->single_lock);
 	
-	precise_usleep(philos->time_to_eat);
+	precise_usleep(philos->time_to_eat, philos);
 	
 	pthread_mutex_lock(&philos->single_lock);
+	p_private->last_eat_time = actual_time();
 	p_private->meals_eaten++;
 	pthread_mutex_unlock(&philos->single_lock);
 	

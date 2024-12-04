@@ -58,8 +58,9 @@ void	p_eat(t_philo *philos, t_private *p_private)
 void	p_sleep(t_philo *philos, t_private *p_private)
 {
 	pthread_mutex_lock(&philos->single_lock);
-	printf("%ld %d is sleeping\n", actual_time(), p_private->idx);
+	printf("%ld %d is sleeping\n", actual_time() - philos->start_time, p_private->idx);
 	pthread_mutex_unlock(&philos->single_lock);
+	precise_usleep(philos->time_to_sleep);
 }
 
 void	*routine(void *arg)

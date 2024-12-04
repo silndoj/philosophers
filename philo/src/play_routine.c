@@ -43,12 +43,18 @@ void	play_routine(t_philo *philos)
 {
 	int	i;
 
+	philos->start_time = actual_time();
 	i = -1;
-	philos->threads = ft_malloc(sizeof(pthread_t) * philos->philo_idx);
+	while (++i < philos->philo_idx)
+		philos->p_private[i].last_eat_time = philos->start_time;
+		
+	i = -1;
 	while (++i < philos->philo_idx)
 		pthread_create(&philos->threads[i], NULL, routine,
 			&philos->p_private[i]);
+			
 	death_cam(philos);
+	
 	i = -1;
 	while (++i < philos->philo_idx)
 		pthread_join(philos->threads[i], NULL);

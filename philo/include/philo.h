@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 01:45:36 by silndoj           #+#    #+#             */
-/*   Updated: 2024/11/30 22:38:45 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/12/06 21:25:35 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct private_t
 	long			last_eat_time;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	*f1;
+	pthread_mutex_t	*f2;
 	struct philo_t	*philos;
 }	t_private;
 

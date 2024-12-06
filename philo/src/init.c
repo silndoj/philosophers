@@ -6,7 +6,7 @@
 /*   By: silndoj <silndoj@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:10:26 by silndoj           #+#    #+#             */
-/*   Updated: 2024/12/03 10:14:39 by silndoj          ###   ########.fr       */
+/*   Updated: 2024/12/06 21:36:46 by silndoj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	init_single_philo(t_philo *philos)
 	{
 		philos->p_private[i].idx = i + 1;
 		philos->p_private[i].meals_eaten = 0;
-		philos->p_private[i].last_eat_time = actual_time();
+		philos->p_private[i].last_eat_time = philos->start_time;
 		philos->p_private[i].l_fork = &philos->forks[i];
 		if (i == idx - 1)
 			philos->p_private[i].r_fork = &philos->forks[0];
@@ -52,10 +52,7 @@ int	init_single_philo(t_philo *philos)
 	}
 	philos->threads = ft_malloc(sizeof(pthread_t) * (philos->philo_idx + 1));
 	if (!philos->threads)
-	{
-		free(philos->p_private);
-		return (EXIT_FAILURE);
-	}
+		return (free(philos->p_private), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -68,6 +65,7 @@ int	philos_init(t_philo *philos, int argc, char **argv)
 		philos->time_to_eat = ft_atoi(argv[3]);
 		philos->time_to_sleep = ft_atoi(argv[4]);
 		philos->flag = 1;
+		philos->start_time = actual_time();
 		if (argc == 6)
 			philos->number_of_meals = ft_atoi(argv[5]);
 		else
